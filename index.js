@@ -22,7 +22,7 @@ function gotMessage(msg){
 
 	var mobs = ["STEVE","CREEPER","SKELETON","ZOMBIE","ENDERMAN","ALEX","ENDER-DRAGON","SPIDER","WITCH","VILLAGER","PARROT","DOG","CAT","SHULKER","WITHER","PIGLIN"];
 
-	if(msg.content === '*rnmob'){
+	if(msg.channel.id === '858225245060333569' && msg.content === '*rnmob'){
 		msg.reply("Your random mob is: "+mobs[Math.floor(Math.random()*mobs.length)]);
 	}
 }
