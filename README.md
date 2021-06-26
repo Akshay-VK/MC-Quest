@@ -1,2 +1,2 @@
-### MC Quest
-# This is a Discord bot made for my server BOT WORLDS
+# MC Quest
+### This is a Discord bot made for my server BOT WORLDS
