@@ -1,0 +1,15 @@
+{
+  "name": "mc-quest",
+  "version": "1.0.0",
+  "description": "a minecraft discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karuvathil Akshay Vijaykumar",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0"
+  }
+}
