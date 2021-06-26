@@ -26,7 +26,7 @@ function gotMessage(msg){
 		if(msg.content === '*rnmob'){
 			msg.reply("Your random mob is: "+mobs[Math.floor(Math.random()*mobs.length)]);
 		}
-		if(msg.content === '*crtrsmcquest'){
+		if(msg.content === '*creators'){
 			msg.reply("MC Quest was made by 2 simple people who led simple lives. They went by the name of Akshay and Kishan.");
 		}
 	}
