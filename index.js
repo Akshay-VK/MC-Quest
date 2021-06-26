@@ -22,7 +22,12 @@ function gotMessage(msg){
 
 	var mobs = ["STEVE","CREEPER","SKELETON","ZOMBIE","ENDERMAN","ALEX","ENDER-DRAGON","SPIDER","WITCH","VILLAGER","PARROT","DOG","CAT","SHULKER","WITHER","PIGLIN"];
 
-	if(msg.channel.id === '858225245060333569' && msg.content === '*rnmob'){
-		msg.reply("Your random mob is: "+mobs[Math.floor(Math.random()*mobs.length)]);
+	if(msg.channel.id === '858225245060333569'){
+		if(msg.content === '*rnmob'){
+			msg.reply("Your random mob is: "+mobs[Math.floor(Math.random()*mobs.length)]);
+		}
+		if(msg.content === '*crtrsmcquest'){
+			msg.reply("MC Quest was made by 2 simple people by the name of Akshay and Kishan.");
+		}
 	}
 }
