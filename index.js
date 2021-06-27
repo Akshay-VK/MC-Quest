@@ -33,8 +33,6 @@ function gotMessage(msg){
 		if(msg.content === '*creators'){
 			msg.reply("MC Quest was made by 2 simple people who led simple lives. They went by the name of Akshay and Kishan.");
 		}
-		console.log(words);
-		console.log(msg.author)
 		
 		if(words[0] === '*setnick'){
 		  people[msg.author.id] = words[1];
