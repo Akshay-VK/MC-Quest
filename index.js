@@ -38,7 +38,7 @@ function gotMessage(msg){
 		
 		if(words[0] === '*setnick'){
 		  people[msg.author.id] = words[1];
-		  msg.reply('Your username is set to '+words[1]);
+		  msg.reply('Your nickname is set to '+words[1]);
 		}
 		if(msg.content === '*getnick'){
 		  if(people.hasOwnProperty(msg.author.id)){
