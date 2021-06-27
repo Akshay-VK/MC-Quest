@@ -33,14 +33,16 @@ function gotMessage(msg){
 		if(msg.content === '*creators'){
 			msg.reply("MC Quest was made by 2 simple people who led simple lives. They went by the name of Akshay and Kishan.");
 		}
+		console.log(words);
+		console.log(msg.author)
 		
 		if(words[0] === '*setnick'){
-		  people[msg.author.username] = words[1];
+		  people[msg.author.id] = words[1];
 		  msg.reply('Your username is set to '+words[1]);
 		}
 		if(msg.content === '*getnick'){
-		  if(people.hasOwnProperty(msg.author.username)){
-		    msg.reply("Your nickname is "+people[msg.author.username]);
+		  if(people.hasOwnProperty(msg.author.id)){
+		    msg.reply("Your nickname is "+people[msg.author.id]);
 		  }else{
 		    msg.reply(`You haven't set a nickname yet. To do so, type *setnick (your nickname)`);
 		  }
