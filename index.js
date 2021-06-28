@@ -70,12 +70,12 @@ function gotMessage(msg){
 function handleGame(msg){
 	var id = msg.author.id;
 	console.log(people);
-	if(people[id].gameState == true){
+	if(people[id][gameState] == true){
 		msg.reply("Umm..you have a game running. If you want to start a new game, type *stopgame and then start a new game");
 	}else{
-		people[id].gameState = true;
+		people[id][gameState] = true;
 		var biome = pickRandom(biomes);
-		people[id].currentBiome = biome;
+		people[id][currentBiome] = biome;
 		msg.reply("New game started....\nYou spawned in the "+biome+" biome!");
 	}
 }
