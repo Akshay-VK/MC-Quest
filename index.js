@@ -35,15 +35,16 @@ function gotMessage(msg){
 		}
 		
 		if(words[0] === '*setnick'){
-		  people[msg.author.id] = words[1];
-		  msg.reply('Your nickname is set to '+words[1]);
+		  	people[msg.author.id] = words[1];
+			msg.reply('Your nickname is set to '+words[1]);
+		  	console.log(people);
 		}
 		if(msg.content === '*getnick'){
-		  if(people.hasOwnProperty(msg.author.id)){
-		    msg.reply("Your nickname is "+people[msg.author.id]);
-		  }else{
-		    msg.reply(`You haven't set a nickname yet. To do so, type *setnick (your nickname)`);
-		  }
+		  	if(people.hasOwnProperty(msg.author.id)){
+			    	msg.reply("Your nickname is "+people[msg.author.id]);
+		  	}else{
+		    		msg.reply(`You haven't set a nickname yet. To do so, type *setnick (your nickname)`);
+		  	}
 		}
 	}
 }
