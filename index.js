@@ -33,18 +33,24 @@ function gotMessage(msg){
 	var words = msg.content.split(' ');
 
 	if(msg.channel.id === '858225245060333569'){
+	  if(msg.content === '*help'){
+	    msg.reply('All commands must be prefixes with a star(*)\n\nrnmob\tDisplays a random mob name\nnick\tDisplays the set nickname\nsetnick\tSets a nickname\nstartgame\tStarts a new game\nstopgane\tStops the current game\ncreators\tDisplays the creators of this bot');
+	  }
+	  //RANDOM MOB
 		if(msg.content === '*rnmob'){
 			msg.reply("Your random mob is: "+mobs[Math.floor(Math.random()*mobs.length)]);
 		}
+		//CREATORS
 		if(msg.content === '*creators'){
 			msg.reply("MC Quest was made by 2 simple people who led simple lives. They went by the name of Akshay and Kishan.");
 		}
-		
+		//SET NICKNAME
 		if(words[0] === '*setnick'){
 		  	people[msg.author.id] = {'nickname':words[1]};
 			msg.reply('Your nickname is set to '+words[1]);
 		  	console.log(people);
 		}
+		//GET NICKNAME
 		if(msg.content === '*nick'){
 		  	if(people.hasOwnProperty(msg.author.id) && people[msg.author.id].hasOwnProperty('nickname')){
 			    	msg.reply("Your nickname is "+people[msg.author.id].nickname);
@@ -52,12 +58,14 @@ function gotMessage(msg){
 		    		msg.reply(`You haven't set a nickname yet. To do so, type *setnick (your nickname)`);
 		  	}
 		}
+		//START A GAME
 		if(msg.content === '*startgame'){
 			if(!people.hasOwnProperty(msg.author.id)){
 				people[msg.author.id] = {};
 			}
 			handleGame(msg);
 		}
+		//STOP A GAME
 		if(msg.content === "*stopgame"){
 			var id = msg.author.id;
 			if(people[id]['gameState'] == true){
