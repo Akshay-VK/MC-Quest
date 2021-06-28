@@ -34,7 +34,7 @@ function gotMessage(msg){
 
 	if(msg.channel.id === '858225245060333569'){
 	  if(msg.content === '*help'){
-	    msg.reply('All commands must be prefixes with a star(*)\n\nrnmob\tDisplays a random mob name\nnick\tDisplays the set nickname\nsetnick\tSets a nickname\nstartgame\tStarts a new game\nstopgane\tStops the current game\ncreators\tDisplays the creators of this bot');
+	    msg.reply('All commands must be prefixes with a star(*)\n\n**rnmob**-\tDisplays a random mob name\n**nick**-\tDisplays the set nickname\n**setnick**-\tSets a nickname\n**startgame**-\tStarts a new game\n**stopgame**-\tStops the current game\n**creators**-\tDisplays the creators of this bot');
 	  }
 	  //RANDOM MOB
 		if(msg.content === '*rnmob'){
