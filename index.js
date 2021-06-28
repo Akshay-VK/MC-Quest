@@ -57,8 +57,8 @@ function gotMessage(msg){
 		}
 		if(msg.content === "*stopgame"){
 			var id = msg.author.id;
-			if(people[id].gameState == true){
-				people[id].gameState = false;
+			if(people[id]['gameState'] == true){
+				people[id]['gameState'] = false;
 				msg.reply("Game stopped.");
 			}else{
 				msg.reply(`You don't have any game running right now...`);
