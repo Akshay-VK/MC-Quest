@@ -53,6 +53,9 @@ function gotMessage(msg){
 		  	}
 		}
 		if(msg.content === '*startgame'){
+			if(!people.hasOwnProperty(msg.author.id)){
+				people[msg.author.id] = {};
+			}
 			handleGame(msg);
 		}
 		if(msg.content === "*stopgame"){
