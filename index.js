@@ -39,7 +39,7 @@ function gotMessage(msg){
 			msg.reply('Your nickname is set to '+words[1]);
 		  	console.log(people);
 		}
-		if(msg.content === '*getnick'){
+		if(msg.content === '*nick'){
 		  	if(people.hasOwnProperty(msg.author.id)){
 			    	msg.reply("Your nickname is "+people[msg.author.id]);
 		  	}else{
