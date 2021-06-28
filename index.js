@@ -14,17 +14,23 @@ client.on("ready",botReady);
 function botReady(){
 	console.log("bot ready...");
 }
+
+var mobs = ["CREEPER","SKELETON","ZOMBIE","ENDERMAN", "ENDER-DRAGON","SPIDER","WITCH","VILLAGER","PARROT","DOG","CAT","SHULKER","WITHER","PIGLIN"];
+
+var biomes = ["plains","swamps","forest","savanna","taiga","snowy tundra","mesa","jungle"];
+
 var people ={};
 
 client.on("message",gotMessage);
 
+function pickRandom(arr){
+	return arr[Math.floor(Math.random()*arr.length)];
+}
 
 function gotMessage(msg){
 	console.log(msg.content);
 	
 	var words = msg.content.split(' ');
-
-	var mobs = ["CREEPER","SKELETON","ZOMBIE","ENDERMAN", "ENDER-DRAGON","SPIDER","WITCH","VILLAGER","PARROT","DOG","CAT","SHULKER","WITHER","PIGLIN"];
 
 	if(msg.channel.id === '858225245060333569'){
 		if(msg.content === '*rnmob'){
@@ -46,5 +52,29 @@ function gotMessage(msg){
 		    		msg.reply(`You haven't set a nickname yet. To do so, type *setnick (your nickname)`);
 		  	}
 		}
+		if(msg.content === '*startgame'){
+			handleGame(msg);
+		}
+		if(msg.content === "*stopgame"){
+			var id = msg.author.id;
+			if(people[id].gameState == true){
+				people[id].gameState = false;
+				msg.reply("Game stopped.");
+			}else{
+				msg.reply(`You don't have any game running right now...`);
+			}
+		}
+	}
+}
+
+function handleGame(msg){
+	var id = msg.author.id;
+	if(people[id].gameState == true){
+		msg.reply("Umm..you have a game running. If you want to start a new game, type *stopgame and then start a new game");
+	}else{
+		people[id].gameState = true;
+		var biome = pickRandom(biomes);
+		people[id].currentBiome = biome;
+		msg.reply("New game started....\nYou spawned in the "+biome+" biome!");
 	}
 }
