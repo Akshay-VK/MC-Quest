@@ -69,6 +69,7 @@ function gotMessage(msg){
 
 function handleGame(msg){
 	var id = msg.author.id;
+	console.log(people);
 	if(people[id].gameState == true){
 		msg.reply("Umm..you have a game running. If you want to start a new game, type *stopgame and then start a new game");
 	}else{
