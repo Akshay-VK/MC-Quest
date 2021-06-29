@@ -34,7 +34,7 @@ function gotMessage(msg) {
 
 	if (msg.channel.id === '858225245060333569') {
 	  
-	  switch (mag.content){
+	  switch (msg.content){
 	    case '*help':
 	      helpCommad(msg);
 	      break;
