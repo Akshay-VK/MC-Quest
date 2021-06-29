@@ -33,54 +33,61 @@ function gotMessage(msg) {
 	var words = msg.content.split(' ');
 
 	if (msg.channel.id === '858225245060333569') {
-
-
-		if (msg.content === '*help') {
-
-			helpCommad(msg);
-
-		} else
-		if (msg.content === '*rnmob') { //RANDOM MOB
-			randomMobCommand(msg);
-		} else
-		if (msg.content === '*creators') { //CREATORS
-
-			creatorsCommand(msg);
-
-		} else
-		if (words[0] === '*setnick') { //SET NICKNAME
-			people[msg.author.id] = {
-				'nickname': words[1]
-			};
-			msg.reply('Your nickname is set to ' + words[1]);
-			console.log(people);
-		} else
-		if (msg.content === '*nick') { //GET NICKNAME
-			if (people.hasOwnProperty(msg.author.id) && people[msg.author.id].hasOwnProperty('nickname')) {
-				msg.reply("Your nickname is " + people[msg.author.id].nickname);
-			} else {
-				msg.reply(`You haven't set a nickname yet. To do so, type *setnick (your nickname)`);
-			}
-		} else
-		if (msg.content === '*startgame') { //START GAME
-			if (!people.hasOwnProperty(msg.author.id)) {
-				people[msg.author.id] = {};
-			}
-			handleGame(msg);
-		} else
-		if (msg.content === "*stopgame") { //STOP GAME
-			var id = msg.author.id;
-			if (people[id]['gameState'] == true) {
-				people[id]['gameState'] = false;
-				msg.reply("Game stopped.");
-			} else {
-				msg.reply(`You don't have any game running right now...`);
-			}
-		}
+	  
+	  switch (mag.content){
+	    case '*help':
+	      helpCommad(msg);
+	      break;
+	    case '*rnmob':
+	      randomMobCommand(msg);
+	      break;
+	    case '*crrators':
+	      creatorsCommand(msg);
+	      break;
+	    case '*setnick':
+	     setNickname(msg);
+	     break;
+	    case '*nick':
+	      getNickname(msg);
+	      break;
+	    case '*startgame':
+	      if (!people.hasOwnProperty(msg.author.id)) {
+	        people[msg.author.id] = {};
+	      }
+	      handleGame(msg);
+	      break;
+	     case '*stopgame':
+	       stopGame(msg);
+	       break;
+	  }
 	}
 }
 
+function stopGame(msg){
+  var id = msg.author.id;
+	if (people[id]['gameState'] == true) {
+		people[id]['gameState'] = false;
+		msg.reply("Game stopped.");
+	} else {
+		msg.reply(`You don't have any game running right now...`);
+	}
+}
 
+function getNickname(msg){
+  if (people.hasOwnProperty(msg.author.id) && people[msg.author.id].hasOwnProperty('nickname')) {
+		msg.reply("Your nickname is " + people[msg.author.id].nickname);
+	} else {
+		msg.reply(`You haven't set a nickname yet. To do so, type *setnick (your nickname)`);
+	}
+}
+
+function setNickname(msg){
+  people[msg.author.id] = {
+		'nickname': words[1]
+	};
+	msg.reply('Your nickname is set to ' + words[1]);
+	console.log(people);
+}
 
 function randomMobCommand(msg){
 	 msg.reply("Your random mob is: " + mobs[Math.floor(Math.random() * mobs.length)]);
