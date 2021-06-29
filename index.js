@@ -37,15 +37,16 @@ function gotMessage(msg) {
 
 		if (msg.content === '*help') {
 
-			msg.channel.send('All commands must be prefixes with a star(*)\n\n**rnmob**-\tDisplays a random mob name\n**nick**-\tDisplays the set nickname\n**setnick**-\tSets a nickname\n**startgame**-\tStarts a new game\n**stopgame**-\tStops the current game\n**creators**-\tDisplays the creators of this bot');
+			helpCommad(msg);
 
 		} else
 		if (msg.content === '*rnmob') { //RANDOM MOB
-			msg.reply("Your random mob is: " + mobs[Math.floor(Math.random() * mobs.length)]);
-
+			randomMobCommand(msg);
 		} else
 		if (msg.content === '*creators') { //CREATORS
-			msg.reply("MC Quest was made by 2 simple people who led simple lives. They went by the name of Akshay and Kishan.");
+
+			creatorsCommand(msg);
+
 		} else
 		if (words[0] === '*setnick') { //SET NICKNAME
 			people[msg.author.id] = {
@@ -75,26 +76,22 @@ function gotMessage(msg) {
 			} else {
 				msg.reply(`You don't have any game running right now...`);
 			}
-		} else
-		if (msg.content === "*inputtest") {
-			msg.channel.send("Type a name.");
-
-			// `m` is a message object that will be passed through the filter function
-			function filter(m) {
-				return m.author.id == msg.author.id;
-			}
-			const collector = msg.channel.createMessageCollector(filter,{time: 15000,max: 1	});
-
-			collector.on('collect', m => {
-				console.log(`Collected ${m.content}`);
-				msg.channel.send("Hello "+m.content);
-			});
-
-			collector.on('end', collected => {
-				console.log(`Collected ${collected.size} items`);
-			});
 		}
 	}
+}
+
+
+
+function randomMobCommand(msg){
+	 msg.reply("Your random mob is: " + mobs[Math.floor(Math.random() * mobs.length)]);
+}
+
+function helpCommand(msg){
+	msg.channel.send('All commands must be prefixes with a star(*)\n\n**rnmob**-\tDisplays a random mob name\n**nick**-\tDisplays the set nickn    ame\n**setnick**-\tSets a nickname\n**startgame**-\tStarts a new game\n**stopgame**-\tStops the current game\n**creators**-\tDisplays the creators of this bot');
+}
+
+function creatorsCommand(msg){
+	msg.reply("MC Quest was made by 2 simple people who led simple lives. They went by the name of Akshay and Kishan.");
 }
 
 function handleGame(msg) {
@@ -107,16 +104,16 @@ function handleGame(msg) {
 		var biome = pickRandom(biomes);
 		people[id]['currentBiome'] = biome;
 		msg.reply("New game started....\nYou spawned in the " + biome + " biome!");
+
+
+	        //OPTIONS 1
+
+        	msg.channel.send("Now choose what you want to do..\n\na)**Search for trees and punch them**\nb)**Go exploring for another biome**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+
+	        inputCollector(msg,firstOption,(nmsg,collected)=>{console.log('first option ended');});
+
+        	//END OF OPTION 1
 	}
-
-
-	//OPTIONS 1
-	
-	msg.channel.send("Now choose what you want to do..\n\na)**Search for trees and punch them**\nb)**Go exploring for another biome**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
-
-	inputCollector(msg,firstOption,(nmsg,collected)=>{console.log('first option ended');});
-
-	//END OF OPTION 1
 }
 
 function firstOption(msg,m){
