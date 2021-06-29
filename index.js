@@ -110,23 +110,20 @@ function handleGame(msg) {
 	}
 
 
-	var optionAnswer;
-
-
 	//OPTIONS 1
 	
 	msg.channel.send("Now choose what you want to do..\n\na)**Search for trees and punch them**\nb)**Go exploring for another biome**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
-	function filter(m){return m.author.id == msg.author.id;}
+	inputCollector(msg,firstOption,(collected)=>{console.log('first option ended');});
 
-	const collector = msg.channel.createMessageCollector(filter,{time:15000,max:1});
+	//END OF OPTION 1
+}
 
-	collector.on('collect',m=>{
-		var res = m.content;
+function firstOption(m){
+  var res = m.content;
 
 		if(res === 'a'){
 			//SEARCHING FOR TREES
-			optionAnswer = 1;
 			msg.reply("Now searching for trees...");
 		}else if(res === 'b'){
 			//EXPLORING...
@@ -136,13 +133,20 @@ function handleGame(msg) {
 			//PAUSED
 			optionAnswer = 3;
 			msg.reply("Game paused.. type *resume");
-	                people[msg.author.id]["paused"] = true;
+	    people[msg.author.id]["paused"] = true;
 		}
+    
+}
 
-	});
-	collector.on('end',collected=>{
-		console.log('First option query ended');
-	});
-
-	//END OF OPTION 1
+function inputCollector(msg,onCollect,onEnd){
+  function filter(m){
+    return m.autgor.id === msg.author.id;
+  }
+  const collector = msg.channel.createMessageCollector(filter,{max:1,time:15000});
+  collector.on('collect',m=>{
+    onCollect(m);
+  });
+  collector.on('end',collected=>{
+    onEnd(collected);
+  })
 }
