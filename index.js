@@ -114,12 +114,12 @@ function handleGame(msg) {
 	
 	msg.channel.send("Now choose what you want to do..\n\na)**Search for trees and punch them**\nb)**Go exploring for another biome**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
-	inputCollector(msg,firstOption,(collected)=>{console.log('first option ended');});
+	inputCollector(msg,firstOption,(nmsg,collected)=>{console.log('first option ended');});
 
 	//END OF OPTION 1
 }
 
-function firstOption(m){
+function firstOption(msg,m){
   var res = m.content;
 
 		if(res === 'a'){
@@ -144,9 +144,9 @@ function inputCollector(msg,onCollect,onEnd){
   }
   const collector = msg.channel.createMessageCollector(filter,{max:1,time:15000});
   collector.on('collect',m=>{
-    onCollect(m);
+    onCollect(msg,m);
   });
   collector.on('end',collected=>{
-    onEnd(collected);
+    onEnd(msg,collected);
   })
 }
