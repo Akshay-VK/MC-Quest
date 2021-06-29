@@ -140,7 +140,7 @@ function firstOption(m){
 
 function inputCollector(msg,onCollect,onEnd){
   function filter(m){
-    return m.autgor.id === msg.author.id;
+    return m.author.id === msg.author.id;
   }
   const collector = msg.channel.createMessageCollector(filter,{max:1,time:15000});
   collector.on('collect',m=>{
