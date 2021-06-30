@@ -220,7 +220,7 @@ function inputCollector(msg, onCollect, onEnd) {
 }
 function giveReply(msg,text){
   if(people.hasOwnProperty(msg.author.id)){
-    msg.channel.send(msg.author.id+', '+text);
+    msg.channel.send(people[msg.author.id].nickname+', '+text);
   }else{
     msg.reply(text);
   }
