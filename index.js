@@ -36,7 +36,7 @@ function gotMessage(msg) {
 	  
 	  switch (words[0]){
 	    case '*help':
-	      helpCommad(msg);
+	      helpCommand(msg);
 	      break;
 	    case '*rnmob':
 	      randomMobCommand(msg);
