@@ -34,14 +34,14 @@ function gotMessage(msg) {
 
 	if (msg.channel.id === '858225245060333569') {
 	  
-	  switch (msg.content){
+	  switch (words[0]){
 	    case '*help':
 	      helpCommad(msg);
 	      break;
 	    case '*rnmob':
 	      randomMobCommand(msg);
 	      break;
-	    case '*crrators':
+	    case '*creators':
 	      creatorsCommand(msg);
 	      break;
 	    case '*setnick':
