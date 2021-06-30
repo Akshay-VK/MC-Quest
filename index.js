@@ -33,38 +33,38 @@ function gotMessage(msg) {
 	var words = msg.content.split(' ');
 
 	if (msg.channel.id === '858225245060333569') {
-	  
-	  switch (words[0]){
-	    case '*help':
-	      helpCommand(msg);
-	      break;
-	    case '*rnmob':
-	      randomMobCommand(msg);
-	      break;
-	    case '*creators':
-	      creatorsCommand(msg);
-	      break;
-	    case '*setnick':
-	     setNickname(msg,words);
-	     break;
-	    case '*nick':
-	      getNickname(msg);
-	      break;
-	    case '*startgame':
-	      if (!people.hasOwnProperty(msg.author.id)) {
-	        people[msg.author.id] = {};
-	      }
-	      handleGame(msg);
-	      break;
-	     case '*stopgame':
-	       stopGame(msg);
-	       break;
-	  }
+
+		switch (words[0]) {
+			case '*help':
+				helpCommand(msg);
+				break;
+			case '*rnmob':
+				randomMobCommand(msg);
+				break;
+			case '*creators':
+				creatorsCommand(msg);
+				break;
+			case '*setnick':
+				setNickname(msg, words);
+				break;
+			case '*nick':
+				getNickname(msg);
+				break;
+			case '*startgame':
+				if (!people.hasOwnProperty(msg.author.id)) {
+					people[msg.author.id] = {};
+				}
+				handleGame(msg);
+				break;
+			case '*stopgame':
+				stopGame(msg);
+				break;
+		}
 	}
 }
 
-function stopGame(msg){
-  var id = msg.author.id;
+function stopGame(msg) {
+	var id = msg.author.id;
 	if (people[id]['gameState'] == true) {
 		people[id]['gameState'] = false;
 		msg.reply("Game stopped.");
@@ -73,31 +73,31 @@ function stopGame(msg){
 	}
 }
 
-function getNickname(msg){
-  if (people.hasOwnProperty(msg.author.id) && people[msg.author.id].hasOwnProperty('nickname')) {
+function getNickname(msg) {
+	if (people.hasOwnProperty(msg.author.id) && people[msg.author.id].hasOwnProperty('nickname')) {
 		msg.reply("Your nickname is " + people[msg.author.id].nickname);
 	} else {
 		msg.reply(`You haven't set a nickname yet. To do so, type *setnick (your nickname)`);
 	}
 }
 
-function setNickname(msg,words){
-  people[msg.author.id] = {
+function setNickname(msg, words) {
+	people[msg.author.id] = {
 		'nickname': words[1]
 	};
 	msg.reply('Your nickname is set to ' + words[1]);
 	console.log(people);
 }
 
-function randomMobCommand(msg){
-	 msg.reply("Your random mob is: " + mobs[Math.floor(Math.random() * mobs.length)]);
+function randomMobCommand(msg) {
+	msg.reply("Your random mob is: " + mobs[Math.floor(Math.random() * mobs.length)]);
 }
 
-function helpCommand(msg){
+function helpCommand(msg) {
 	msg.channel.send('All commands must be prefixes with a star(*)\n\n**rnmob**-\tDisplays a random mob name\n**nick**-\tDisplays the set nickn    ame\n**setnick**-\tSets a nickname\n**startgame**-\tStarts a new game\n**stopgame**-\tStops the current game\n**creators**-\tDisplays the creators of this bot');
 }
 
-function creatorsCommand(msg){
+function creatorsCommand(msg) {
 	msg.reply("MC Quest was made by 2 simple people who led simple lives. They went by the name of Akshay and Kishan.");
 }
 
@@ -111,46 +111,101 @@ function handleGame(msg) {
 		var biome = pickRandom(biomes);
 		people[id]['currentBiome'] = biome;
 		msg.reply("New game started....\nYou spawned in the " + biome + " biome!");
+		people[id]['inventory'] = {};
 
+		//OPTIONS 1
 
-	        //OPTIONS 1
+		msg.channel.send("Now choose what you want to do..\n\na)**Search for trees and punch them**\nb)**Go exploring for another biome**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
-        	msg.channel.send("Now choose what you want to do..\n\na)**Search for trees and punch them**\nb)**Go exploring for another biome**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+		inputCollector(msg, firstOption, (nmsg, collected) => {
+			console.log('first option ended');
+		});
 
-	        inputCollector(msg,firstOption,(nmsg,collected)=>{console.log('first option ended');});
-
-        	//END OF OPTION 1
+		//END OF OPTION 1
 	}
 }
 
-function firstOption(msg,m){
-  var res = m.content;
+function firstOption(msg, m) {
+	var res = m.content;
 
-		if(res === 'a'){
-			//SEARCHING FOR TREES
-			msg.reply("Now searching for trees...");
-		}else if(res === 'b'){
-			//EXPLORING...
-			optionAnswer = 2;
-			msg.reply("The exploration starts now!!!");
-		}else {
-			//PAUSED
-			optionAnswer = 3;
-			msg.reply("Game paused.. type *resume");
-	    people[msg.author.id]["paused"] = true;
+	if (res === 'a' || res === 'A') {
+		//SEARCHING FOR TREES
+		msg.channel.send("Now searching for trees...");
+
+		var apples = Math.floor((Math.random() + 0.1) * 11)
+
+		msg.channel.send("You found trees and crafted up some tools.\n\nAnd while you were at it you also got " + apples + " apples.");
+
+		people[msg.author.id]["inventory"]["wooden-sword"] = true;
+		people[msg.author.id]["inventory"]["wooden-pickaxe"] = true;
+		people[msg.author.id]["inventory"]["wooden-shovel"] = true;
+		people[msg.author.id]["inventory"]["wooden-axe"] = true;
+		people[msg.author.id]["inventory"]["apples"] = apples;
+
+		if (Math.random() < 0.3) {
+			msg.channel.send("Oh my god! Is that a village! Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+
+			inputCollector(msg, villageFound, (nmsg, collected) => {
+				console.log('first option ended');
+			});
 		}
-    
+
+
+	} else if (res === 'b' || res === 'B') {
+		//EXPLORING...
+		msg.reply("The exploration starts now!!!");
+
+		var newBiome = pickRandom(biomes);
+
+		people[msg.author.id]['currentBiome'] = newBiome;
+		msg.channel.send('You went on exploring, and reached the ' + newBiome + ' biome..');
+
+		if (Math.random() > 0.5) {
+			msg.channel.send('And it seems that you have gotten hungry...');
+		}
+
+		msg.channel.send("Now choose what you want to do..\n\na)**Search for trees and punch them**\nb)**Go exploring for another biome**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+
+		inputCollector(msg, firstOption, (nmsg, collected) => {
+			console.log('first option ended');
+		});
+
+	} else {
+		//PAUSED
+		msg.reply("Game paused.. type *resume");
+		people[msg.author.id]["paused"] = true;
+		people[msg.author.id]["landmark"] = 'first-option';
+	}
+
 }
 
-function inputCollector(msg,onCollect,onEnd){
-  function filter(m){
-    return m.author.id === msg.author.id;
-  }
-  const collector = msg.channel.createMessageCollector(filter,{max:1,time:15000});
-  collector.on('collect',m=>{
-    onCollect(msg,m);
-  });
-  collector.on('end',collected=>{
-    onEnd(msg,collected);
-  })
+function villageFound(msg, m) {
+	if (m.content === 'a' || m.content === 'A') {
+		//RAID VILLAGE
+		msg.channel.send("Raiding village...");
+	} else if (m.content === 'b' || m.content === 'B') {
+		//START MINING
+		msg.channel.send("Starting to mine...");
+	} else {
+		//PAUSED
+		msg.reply("Game paused.. type *resume");
+		people[msg.author.id]["paused"] = true;
+		people[msg.author.id]["landmark"] = 'village-found';
+	}
+}
+
+function inputCollector(msg, onCollect, onEnd) {
+	function filter(m) {
+		return m.author.id === msg.author.id;
+	}
+	const collector = msg.channel.createMessageCollector(filter, {
+		max: 1,
+		time: 15000
+	});
+	collector.on('collect', m => {
+		onCollect(msg, m);
+	});
+	collector.on('end', collected => {
+		onEnd(msg, collected);
+	})
 }
