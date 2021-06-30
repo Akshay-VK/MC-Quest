@@ -69,9 +69,9 @@ function stopGame(msg) {
 		people[id]['gameState'] = false;
 		people[id]['hungry']=false;
 		people[id]['landmark']='';
-		msg.reply("Game stopped.");
+		giveReply(msg,'Game stopped.');
 	} else {
-		msg.reply(`You don't have any game running right now...`);
+		giveReply(msg,`You don't have any game running right now...`);
 	}
 }
 
@@ -107,12 +107,12 @@ function handleGame(msg) {
 	var id = msg.author.id;
 	console.log(people);
 	if (people[id]['gameState'] == true) {
-		msg.reply("Umm..you have a game running. If you want to start a new game, type *stopgame and then start a new game");
+		giveReply(msg,"Umm..you have a game running. If you want to start a new game, type *stopgame and then start a new game");
 	} else {
 		people[id]['gameState'] = true;
 		var biome = pickRandom(biomes);
 		people[id]['currentBiome'] = biome;
-		msg.reply("New game started....\nYou spawned in the " + biome + " biome!");
+		giveReply(msg,"New game started....\nYou spawned in the " + biome + " biome!");
 		people[id]['inventory'] = {};
 
 		//OPTIONS 1
@@ -155,7 +155,7 @@ function firstOption(msg, m) {
 
 	} else if (res === 'b' || res === 'B') {
 		//EXPLORING...
-		msg.reply("The exploration starts now!!!");
+		giveReply(msg,"The exploration starts now!!!");
 
 		if (people[msg.author.id]['hungry'] && Math.random() < 0.35) {
 			msg.channel.send('You were starving...a bit too much..so...\n\n\nYou died.☠☠');
@@ -181,7 +181,7 @@ function firstOption(msg, m) {
 
 	} else {
 		//PAUSED
-		msg.reply("Game paused.. type *resume");
+		giveReply(msg,"Game paused.. type *resume");
 		people[msg.author.id]["paused"] = true;
 		people[msg.author.id]["landmark"] = 'first-option';
 	}
@@ -197,7 +197,7 @@ function villageFound(msg, m) {
 		msg.channel.send("Starting to mine...");
 	} else {
 		//PAUSED
-		msg.reply("Game paused.. type *resume");
+		giveReply(msg,"Game paused.. type *resume");
 		people[msg.author.id]["paused"] = true;
 		people[msg.author.id]["landmark"] = 'village-found';
 	}
@@ -217,4 +217,11 @@ function inputCollector(msg, onCollect, onEnd) {
 	collector.on('end', collected => {
 		onEnd(msg, collected);
 	})
+}
+function giveReply(msg,text){
+  if(people.hasOwnProperty(msg.author.id)){
+    msg.channel.send(msg.author.id+', '+text);
+  }else{
+    msg.reply(text);
+  }
 }
