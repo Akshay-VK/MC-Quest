@@ -67,6 +67,8 @@ function stopGame(msg) {
 	var id = msg.author.id;
 	if (people[id]['gameState'] == true) {
 		people[id]['gameState'] = false;
+		people[id]['hungry']=false;
+		people[id]['landmark']='';
 		msg.reply("Game stopped.");
 	} else {
 		msg.reply(`You don't have any game running right now...`);
