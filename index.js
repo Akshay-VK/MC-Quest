@@ -155,6 +155,12 @@ function firstOption(msg, m) {
 		//EXPLORING...
 		msg.reply("The exploration starts now!!!");
 
+		if (people[msg.author.id]['hungry'] && Math.random() < 0.35) {
+			msg.channel.send('You were starving...a bit too much..so...\n\n\nYou died.☠☠');
+			stopGame(msg);
+			return;
+		}
+
 		var newBiome = pickRandom(biomes);
 
 		people[msg.author.id]['currentBiome'] = newBiome;
@@ -162,6 +168,7 @@ function firstOption(msg, m) {
 
 		if (Math.random() > 0.5) {
 			msg.channel.send('And it seems that you have gotten hungry...');
+			people[msg.author.id]['hungry'] = true;
 		}
 
 		msg.channel.send("Now choose what you want to do..\n\na)**Search for trees and punch them**\nb)**Go exploring for another biome**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
