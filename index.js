@@ -45,7 +45,7 @@ function gotMessage(msg) {
 	      creatorsCommand(msg);
 	      break;
 	    case '*setnick':
-	     setNickname(msg);
+	     setNickname(msg,words);
 	     break;
 	    case '*nick':
 	      getNickname(msg);
@@ -81,7 +81,7 @@ function getNickname(msg){
 	}
 }
 
-function setNickname(msg){
+function setNickname(msg,words){
   people[msg.author.id] = {
 		'nickname': words[1]
 	};
