@@ -59,7 +59,44 @@ function gotMessage(msg) {
 			case '*stopgame':
 				stopGame(msg);
 				break;
+			case '*resume':
+				resumeGame(msg);
+				break;
 		}
+	}
+}
+
+function resumeGame(msg) {
+	if (people.hasOwnProperty(msg.author.id)) {
+		if (people[msg.author.id]["paused"]) {
+			//CASES
+			switch (people[msg.author.id]['landmark']) {
+				case 'first-option':
+					msg.channel.send("Game resumed...\n\nNow choose what you want to do..\n\na)**Search for trees and punch them**\nb)**Go exploring for another biome**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+
+					inputCollector(msg, firstOption, (nmsg, collected) => {
+						console.log('first option ended');
+					});
+					break;
+				case 'village-found':
+					msg.channel.send("Game resumed...\n\nHey,remember that village you found...\n\n Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+
+					inputCollector(msg, villageFound, (nmsg, collected) => {
+						console.log('first option ended');
+					});
+					break;
+				case 'village-not-found':
+					msg.channel.send("Game resumed...\n\nNow choose what you want to do:\n\na)**Go hunting...**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+
+					inputCollector(msg, villageNotFound, (nmsg, collected) => {
+						console.log('first option ended');
+					});
+					break;
+			}
+		}
+	} else {
+		people[msg.author.id] = {};
+		giveReply(msg, "Umm.. you don't have any paused game.");
 	}
 }
 
@@ -67,11 +104,12 @@ function stopGame(msg) {
 	var id = msg.author.id;
 	if (people[id]['gameState'] == true) {
 		people[id]['gameState'] = false;
-		people[id]['hungry']=false;
-		people[id]['landmark']='';
-		giveReply(msg,'Game stopped.');
+		people[id]['hungry'] = false;
+		people[id]['landmark'] = '';
+		people[id]['paused'] = false;
+		giveReply(msg, 'Game stopped.');
 	} else {
-		giveReply(msg,`You don't have any game running right now...`);
+		giveReply(msg, `You don't have any game running right now...`);
 	}
 }
 
@@ -107,12 +145,12 @@ function handleGame(msg) {
 	var id = msg.author.id;
 	console.log(people);
 	if (people[id]['gameState'] == true) {
-		giveReply(msg,"Umm..you have a game running. If you want to start a new game, type *stopgame and then start a new game");
+		giveReply(msg, "Umm..you have a game running. If you want to start a new game, type *stopgame and then start a new game");
 	} else {
 		people[id]['gameState'] = true;
 		var biome = pickRandom(biomes);
 		people[id]['currentBiome'] = biome;
-		giveReply(msg,"New game started....\nYou spawned in the " + biome + " biome!");
+		giveReply(msg, "New game started....\nYou spawned in the " + biome + " biome!");
 		people[id]['inventory'] = {};
 
 		//OPTIONS 1
@@ -150,12 +188,18 @@ function firstOption(msg, m) {
 			inputCollector(msg, villageFound, (nmsg, collected) => {
 				console.log('first option ended');
 			});
+		} else {
+			msg.channel.send("Now choose what you want to do:\n\na)**Go hunting...**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+
+			inputCollector(msg, villageNotFound, (nmsg, collected) => {
+				console.log('first option ended');
+			});
 		}
 
 
 	} else if (res === 'b' || res === 'B') {
 		//EXPLORING...
-		giveReply(msg,"The exploration starts now!!!");
+		giveReply(msg, "The exploration starts now!!!");
 
 		if (people[msg.author.id]['hungry'] && Math.random() < 0.35) {
 			msg.channel.send('You were starving...a bit too much..so...\n\n\nYou died.☠☠');
@@ -181,7 +225,7 @@ function firstOption(msg, m) {
 
 	} else {
 		//PAUSED
-		giveReply(msg,"Game paused.. type *resume");
+		giveReply(msg, "Game paused.. type *resume");
 		people[msg.author.id]["paused"] = true;
 		people[msg.author.id]["landmark"] = 'first-option';
 	}
@@ -197,9 +241,23 @@ function villageFound(msg, m) {
 		msg.channel.send("Starting to mine...");
 	} else {
 		//PAUSED
-		giveReply(msg,"Game paused.. type *resume");
+		giveReply(msg, "Game paused.. type *resume");
 		people[msg.author.id]["paused"] = true;
 		people[msg.author.id]["landmark"] = 'village-found';
+	}
+}
+
+function villageNotFound(msg, m) {
+	if (m.content === 'a' || m.content === 'A') {
+		//HUNTING...
+	} else if (m.content === 'b' || m.content === 'B') {
+		//STARTING TO MINE
+	} else {
+		//PAUSED
+		giveReply(msg, "Game paused.. type *resume");
+		people[msg.author.id]["paused"] = true;
+		people[msg.author.id]["landmark"] = 'village-not-found';
+
 	}
 }
 
@@ -218,10 +276,11 @@ function inputCollector(msg, onCollect, onEnd) {
 		onEnd(msg, collected);
 	})
 }
-function giveReply(msg,text){
-  if(people.hasOwnProperty(msg.author.id)){
-    msg.channel.send(people[msg.author.id].nickname+', '+text);
-  }else{
-    msg.reply(text);
-  }
+
+function giveReply(msg, text) {
+	if (people.hasOwnProperty(msg.author.id)) {
+		msg.channel.send(people[msg.author.id].nickname + ', ' + text);
+	} else {
+		msg.reply(text);
+	}
 }
