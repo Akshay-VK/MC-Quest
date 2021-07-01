@@ -238,7 +238,7 @@ function villageFound(msg, m) {
 		msg.channel.send("Raiding village...");
 	} else if (m.content === 'b' || m.content === 'B') {
 		//START MINING
-		msg.channel.send("Starting to mine...");
+		theMine(msg);
 	} else {
 		//PAUSED
 		giveReply(msg, "Game paused.. type *resume");
@@ -250,8 +250,10 @@ function villageFound(msg, m) {
 function villageNotFound(msg, m) {
 	if (m.content === 'a' || m.content === 'A') {
 		//HUNTING...
+		hunting(msg);
 	} else if (m.content === 'b' || m.content === 'B') {
 		//STARTING TO MINE
+		theMine(msg);
 	} else {
 		//PAUSED
 		giveReply(msg, "Game paused.. type *resume");
@@ -259,6 +261,40 @@ function villageNotFound(msg, m) {
 		people[msg.author.id]["landmark"] = 'village-not-found';
 
 	}
+}
+
+function hunting(msg) {
+	var hunted = [];
+	if (Math.random() > 0.4) {
+		hunted.push({
+			"name": "pork",
+			"quantity": Math.floor(Math.random() * 11)
+		});
+	}
+	if (Math.random() > 0.7) {
+		hunted.push({
+			"name": "leather",
+			"quantity": Math.floor(Math.random() * 3)
+		});
+	}
+	if (hunted.length == 0) {
+		giveReply(msg, "You went hunting and came back empty handed.");
+	} else {
+		var rep = "You went hunting and caught..\n\n";
+		for (var i = 0; i < hunted.lengh; i++) {
+			rep += " " + hunted[i].name + " : " + hunted[i].quantity + "\n"
+		}
+		giveReply(msg, rep);
+	}
+	msg.channel.send("Oh my god! Is that a village! Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+
+	inputCollector(msg, villageFound, (nmsg, collected) => {
+		console.log('first option ended');
+	});
+}
+
+function theMine(msg) {
+	msg.channel.send("Starting to mine...");
 }
 
 function inputCollector(msg, onCollect, onEnd) {
