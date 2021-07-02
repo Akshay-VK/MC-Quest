@@ -402,7 +402,7 @@ function theChoiceBeforeTheMine(msg, m) {
 }
 
 function stakeOut(msg) {
-	msg..channel.send("Alright...good night!!( I hope ) .... zzzzZZZ");
+	msg.channel.send("Alright...good night!!( I hope ) .... zzzzZZZ");
 }
 
 function getInv(msg) {
