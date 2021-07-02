@@ -285,7 +285,7 @@ function hunting(msg) {
 		var rep = 'You went hunting and caught..\n\n';
 		console.log(huntedItems, huntedItemQuantity);
 
-		for (var i = 0; i < huntedItems.lengh; i++) {
+		for (var i = 0; i < huntedItems.length; i++) {
 			console.log(rep);
 			rep = rep.concat(" ", huntedItems[i], " : ", huntedItemQuantity[i], "\n");
 		}
