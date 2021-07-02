@@ -278,7 +278,7 @@ function hunting(msg) {
 		giveReply(msg, "You went hunting and came back empty handed.");
 	} else {
 		var rep = "You went hunting and caught..\n\n";
-		for (var i = 0; i < hunted.lengh; i++) {
+		for (var i = 0; i < huntedItems.lengh; i++) {
 			rep = rep + " " + huntedItems[i] + " : " + huntedItemQuantity[i] + "\n"
 		}
 		giveReply(msg, rep);
