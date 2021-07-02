@@ -114,6 +114,7 @@ function stopGame(msg) {
 		}
 	} else {
 		people[id] = {};
+		giveReply(msg, `You don't have any game running right now...`);
 	}
 }
 
@@ -282,19 +283,22 @@ function hunting(msg) {
 		giveReply(msg, "You went hunting and came back empty handed.");
 	} else {
 		var rep = "You went hunting and caught..\n\n";
+		console.log(huntedItems, huntedItemQuantity);
+
 		for (var i = 0; i < huntedItems.lengh; i++) {
 			rep = rep.concat(" ", huntedItems[i], " : ", huntedItemQuantity[i], "\n");
 		}
 
-		console.log(rep);
 		giveReply(msg, rep);
 	}
 	msg.channel.send("Oh my god! Is that a village! Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 	inputCollector(msg, villageFound, (nmsg, collected) => {
 		console.log('first option ended');
-		msg.channel.send('No input provided.. game stopped.');
-		stopGame(msg);
+		if (collected.size < 1) {
+			msg.channel.send('No input provided.. game stopped.');
+			stopGame(msg);
+		}
 	});
 }
 
