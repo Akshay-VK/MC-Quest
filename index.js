@@ -77,21 +77,41 @@ function resumeGame(msg) {
 					msg.channel.send("Game resumed...\n\nNow choose what you want to do..\n\na)**Search for trees and punch them**\nb)**Go exploring for another biome**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 					inputCollector(msg, firstOption, (nmsg, collected) => {
-						console.log('first option ended');
+						if (collected.size < 1) {
+							giveReply(msg, "No input provided, game stopped.");
+							stopGame(msg);
+						}
 					});
 					break;
 				case 'village-found':
 					msg.channel.send("Game resumed...\n\nHey,remember that village you found...\n\n Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 					inputCollector(msg, villageFound, (nmsg, collected) => {
-						console.log('first option ended');
+						if (collected.size < 1) {
+							giveReply(msg, "No input provided, game stopped.");
+							stopGame(msg);
+						}
 					});
 					break;
 				case 'village-not-found':
 					msg.channel.send("Game resumed...\n\nNow choose what you want to do:\n\na)**Go hunting...**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 					inputCollector(msg, villageNotFound, (nmsg, collected) => {
-						console.log('first option ended');
+						if (collected.size < 1) {
+							giveReply(msg, "No input provided, game stopped.");
+							stopGame(msg);
+						}
+					});
+					break;
+				case 'the-choice-before-the-mine':
+					msg.channel.send("Now choose what you want to do:\n\na)**Go minig**\nb)**Stake out for the night and mine in the morning**\nc)**Pause for now and resume later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+
+					//mine or stake out for the night and the nmine
+					inputCollector(msg, theChoiceBeforeTheMine, (nmsg, collected) => {
+						if (collected.size < 1) {
+							giveReply(msg, "No input provided, game stopped.");
+							stopGame(msg);
+						}
 					});
 					break;
 			}
@@ -166,7 +186,10 @@ function handleGame(msg) {
 		msg.channel.send("Now choose what you want to do..\n\na)**Search for trees and punch them**\nb)**Go exploring for another biome**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 		inputCollector(msg, firstOption, (nmsg, collected) => {
-			console.log('first option ended');
+			if (collected.size < 1) {
+				giveReply(msg, "No input provided, game stopped.");
+				stopGame(msg);
+			}
 		});
 
 		//END OF OPTION 1
@@ -194,13 +217,19 @@ function firstOption(msg, m) {
 			msg.channel.send("Oh my god! Is that a village! Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 			inputCollector(msg, villageFound, (nmsg, collected) => {
-				console.log('first option ended');
+				if (collected.size < 1) {
+					giveReply(msg, "No input provided, game stopped.");
+					stopGame(msg);
+				}
 			});
 		} else {
 			msg.channel.send("Now choose what you want to do:\n\na)**Go hunting...**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 			inputCollector(msg, villageNotFound, (nmsg, collected) => {
-				console.log('first option ended');
+				if (collected.size < 1) {
+					giveReply(msg, "No input provided, game stopped.");
+					stopGame(msg);
+				}
 			});
 		}
 
@@ -228,7 +257,10 @@ function firstOption(msg, m) {
 		msg.channel.send("Now choose what you want to do..\n\na)**Search for trees and punch them**\nb)**Go exploring for another biome**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 		inputCollector(msg, firstOption, (nmsg, collected) => {
-			console.log('first option ended');
+			if (collected.size < 1) {
+				giveReply(msg, "No input provided, game stopped.");
+				stopGame(msg);
+			}
 		});
 
 	} else {
@@ -289,7 +321,6 @@ function hunting(msg) {
 	msg.channel.send("Oh my god! Is that a village! Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 	inputCollector(msg, villageFound, (nmsg, collected) => {
-		console.log('first option ended');
 		if (collected.size < 1) {
 			msg.channel.send('No input provided.. game stopped.');
 			stopGame(msg);
@@ -343,6 +374,35 @@ function raidVillage(msg) {
 	}
 
 	displayItems(msg, items, itemQuant, "The villagers chased you away...", 'You raided the village and got...');
+
+	msg.channel.send("Now choose what you want to do:\n\na)**Go minig**\nb)**Stake out for the night and mine in the morning**\nc)**Pause for now and resume later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+
+	//mine or stake out for the night and the nmine
+	inputCollector(msg, theChoiceBeforeTheMine, (nmsg, collected) => {
+		if (collected.size < 1) {
+			giveReply(msg, "No input provided, game stopped.");
+			stopGame(msg);
+		}
+	});
+}
+
+function theChoiceBeforeTheMine(msg, m) {
+	if (m.content === 'a' || m.content === 'A') {
+		//Go mining
+		theMine(msg);
+	} else if (m.content === 'b' || m.content === 'B') {
+		//Stake out
+		stakeOut(msg);
+	} else {
+		//PAUSED
+		giveReply(msg, "Game paused.. type *resume");
+		people[msg.author.id]["paused"] = true;
+		people[msg.author.id]["landmark"] = 'the-choice-before-the-mine';
+	}
+}
+
+function stakeOut(msg) {
+	msg..channel.send("Alright...good night!!( I hope ) .... zzzzZZZ");
 }
 
 function getInv(msg) {
@@ -413,7 +473,11 @@ function addItemToInv(id, itemname, multVal, ret) {
 	if (!people[id].hasOwnProperty('inventory')) {
 		people[id]['inventory'] = {};
 	}
-	people[id]['inventory'][itemname] = numOfItems;
+	if (people[id]['inventory'].hasOwnProperty(itemname)) {
+		people[id]['inventory'][itemname] += numOfItems;
+	} else {
+		people[id]['inventory'][itemname] = numOfItems;
+	}
 	if (ret) {
 		return numOfItems;
 	}
