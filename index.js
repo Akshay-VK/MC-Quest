@@ -116,6 +116,7 @@ function stopGame(msg) {
 		people[id] = {};
 		giveReply(msg, `You don't have any game running right now...`);
 	}
+	console.log(people);
 }
 
 function getNickname(msg) {
@@ -272,12 +273,16 @@ function hunting(msg) {
 	var huntedItems = [];
 	var huntedItemQuantity = [];
 	if (Math.random() > 0.4) {
+		var numOfItems = Math.floor(Math.random() * 11);
+		people[msg.author.id]['inventory']['pork'] = numOfItems;
 		huntedItems.push("pork");
-		huntedItemQuantity.push(Math.floor(Math.random() * 11));
+		huntedItemQuantity.push(numOfItems);
 	}
 	if (Math.random() > 0.7) {
+		var numOfItems = Math.floor(Math.random() * 3);
+		people[msg.author.id]['inventory']['leather'] = numOfItems;
 		huntedItems.push("leather");
-		huntedItemQuantity.push(Math.floor(Math.random() * 3));
+		huntedItemQuantity.push(numOfItems);
 	}
 	if (huntedItems.length < 1) {
 		giveReply(msg, "You went hunting and came back empty handed.");
@@ -289,7 +294,7 @@ function hunting(msg) {
 			console.log(rep);
 			rep = rep.concat(" ", huntedItems[i], " : ", huntedItemQuantity[i], "\n");
 		}
-
+		console.log(people);
 		giveReply(msg, rep);
 	}
 	msg.channel.send("Oh my god! Is that a village! Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
