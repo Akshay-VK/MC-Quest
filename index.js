@@ -495,7 +495,7 @@ function addItemToInv(id, itemname, multVal, ret, compulsory) {
 
 function displayItems(msg, items, itemQuantity, ifEmptyMsg, ifNotEmptyMsg) {
 	if (items.length < 1) {
-		giveReply(msg, "ifEmptyMsg");
+		giveReply(msg, ifEmptyMsg);
 	} else {
 		var rep = ifNotEmptyMsg + '\n\n';
 		console.log(items, itemQuantity);
