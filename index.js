@@ -277,13 +277,13 @@ function hunting(msg) {
 			"quantity": Math.floor(Math.random() * 3)
 		});
 	}
-	console.log(hunting);
+	console.log(hunted);
 	if (hunted == []) {
 		giveReply(msg, "You went hunting and came back empty handed.");
 	} else {
 		var rep = "You went hunting and caught..\n\n";
 		for (var i = 0; i < hunted.lengh; i++) {
-			rep += " " + hunted[i].name + " : " + hunted[i].quantity + "\n"
+			rep = rep + " " + hunted[i].name + " : " + hunted[i].quantity + "\n"
 		}
 		giveReply(msg, rep);
 	}
