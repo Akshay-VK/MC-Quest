@@ -162,7 +162,7 @@ function randomMobCommand(msg) {
 }
 
 function helpCommand(msg) {
-	msg.channel.send('All commands must be prefixes with a star(*)\n\n**rnmob**-\tDisplays a random mob name\n**nick**-\tDisplays the set nickn    ame\n**setnick**-\tSets a nickname\n**startgame**-\tStarts a new game\n**stopgame**-\tStops the current game\n**creators**-\tDisplays the creators of this bot');
+	msg.channel.send('All commands must be prefixes with a star(*)\n\n**rnmob**-\t\tDisplays a random mob name\n**nick**-\t\tDisplays the set nickname\n**setnick**-\t\tSets a nickname\n**startgame**-\t\tStarts a new game\n**stopgame**-\t\tStops the current game\n**inv**\t\tShows your inventory\n**creators**-\t\tDisplays the creators of this bot');
 }
 
 function creatorsCommand(msg) {
@@ -348,7 +348,7 @@ function raidVillage(msg) {
 		itemQuant.push(addItemToInv(msg.author.id, 'wheat', 33, true));
 	}
 	//leather armour
-	if (Math.random() > 0.5) {
+	if (Math.random() > -1) {
 		items.push("leather-armour");
 		itemQuant.push(addItemToInv(msg.author.id, 'leather-armour', 2, true));
 	}
@@ -375,7 +375,7 @@ function raidVillage(msg) {
 
 	displayItems(msg, items, itemQuant, "The villagers chased you away...", 'You raided the village and got...');
 
-	msg.channel.send("Now choose what you want to do:\n\na)**Go minig**\nb)**Stake out for the night and mine in the morning**\nc)**Pause for now and resume later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+	msg.channel.send("Now choose what you want to do:\n\na)**Go mining**\nb)**Stake out for the night and mine in the morning**\nc)**Pause for now and resume later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 	//mine or stake out for the night and the nmine
 	inputCollector(msg, theChoiceBeforeTheMine, (nmsg, collected) => {
