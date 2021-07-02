@@ -478,7 +478,7 @@ function addItemToInv(id, itemname, multVal, ret, compulsory) {
 	if (!compulsory) {
 		numOfItems = Math.floor(Math.random() * multVal);
 	} else {
-		numOfItems = ret;
+		numOfItems = multVal;
 	}
 	if (!people[id].hasOwnProperty('inventory')) {
 		people[id]['inventory'] = {};
