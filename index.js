@@ -277,7 +277,8 @@ function hunting(msg) {
 			"quantity": Math.floor(Math.random() * 3)
 		});
 	}
-	if (hunted.length == 0) {
+	console.log(hunting);
+	if (hunted == []) {
 		giveReply(msg, "You went hunting and came back empty handed.");
 	} else {
 		var rep = "You went hunting and caught..\n\n";
