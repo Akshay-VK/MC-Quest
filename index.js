@@ -285,13 +285,16 @@ function hunting(msg) {
 		for (var i = 0; i < huntedItems.lengh; i++) {
 			rep = rep.concat(" ", huntedItems[i], " : ", huntedItemQuantity[i], "\n");
 		}
+
+		console.log(rep);
 		giveReply(msg, rep);
 	}
-	console.log(rep);
 	msg.channel.send("Oh my god! Is that a village! Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 	inputCollector(msg, villageFound, (nmsg, collected) => {
 		console.log('first option ended');
+		msg.channel.send('No input provided.. game stopped.');
+		stopGame(msg);
 	});
 }
 
@@ -305,7 +308,7 @@ function inputCollector(msg, onCollect, onEnd) {
 	}
 	const collector = msg.channel.createMessageCollector(filter, {
 		max: 1,
-		time: 15000
+		time: 60000
 	});
 	collector.on('collect', m => {
 		onCollect(msg, m);
