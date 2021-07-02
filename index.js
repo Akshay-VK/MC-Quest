@@ -419,7 +419,7 @@ function addItemToInv(id, itemname, multVal, ret) {
 	}
 }
 
-function displayItems(msg, msg, items, itemQuantity, ifEmptyMsg, ifNotEmptyMsg) {
+function displayItems(msg, items, itemQuantity, ifEmptyMsg, ifNotEmptyMsg) {
 	if (items.length < 1) {
 		giveReply(msg, "ifEmptyMsg");
 	} else {
