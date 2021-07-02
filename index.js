@@ -243,7 +243,7 @@ function firstOption(msg, m) {
 function villageFound(msg, m) {
 	if (m.content === 'a' || m.content === 'A') {
 		//RAID VILLAGE
-		msg.channel.send("Raiding village...");
+		raidVillage(msg);
 	} else if (m.content === 'b' || m.content === 'B') {
 		//START MINING
 		theMine(msg);
@@ -275,30 +275,17 @@ function hunting(msg) {
 	var huntedItems = [];
 	var huntedItemQuantity = [];
 	if (Math.random() > 0.4) {
-		var numOfItems = Math.floor(Math.random() * 11);
-		people[msg.author.id]['inventory']['pork'] = numOfItems;
+		var numOfItems = addItemToInv(msg.author.id, 'pork', 11, true);
 		huntedItems.push("pork");
 		huntedItemQuantity.push(numOfItems);
 	}
 	if (Math.random() > 0.7) {
-		var numOfItems = Math.floor(Math.random() * 3);
-		people[msg.author.id]['inventory']['leather'] = numOfItems;
+		var numOfItems = addItemToInv(msg.author.id, 'leather', 3, true);
 		huntedItems.push("leather");
 		huntedItemQuantity.push(numOfItems);
 	}
-	if (huntedItems.length < 1) {
-		giveReply(msg, "You went hunting and came back empty handed.");
-	} else {
-		var rep = 'You went hunting and caught..\n\n';
-		console.log(huntedItems, huntedItemQuantity);
+	displayItems(huntedItems, huntedItemQuantity, "You went hunting and came back empty handed.", 'You went hunting and caught..');
 
-		for (var i = 0; i < huntedItems.length; i++) {
-			console.log(rep);
-			rep = rep.concat(" ", huntedItems[i], " : ", huntedItemQuantity[i], "\n");
-		}
-		console.log(people);
-		giveReply(msg, rep);
-	}
 	msg.channel.send("Oh my god! Is that a village! Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 	inputCollector(msg, villageFound, (nmsg, collected) => {
@@ -312,6 +299,50 @@ function hunting(msg) {
 
 function theMine(msg) {
 	msg.channel.send("Starting to mine...");
+}
+
+function raidVillage(msg) {
+	msg.channel.send("Raiding village...");
+
+	var items = [];
+	var itemQuant = [];
+	//shears
+	if (Math.random() > 0.4) {
+		items.push("shears");
+		itemQuant.push(addItemToInv(msg.author.id, 'shears', 2, true));
+	}
+	//wheat
+	if (Math.random() > 0.1) {
+		items.push("wheat");
+		itemQuant.push(addItemToInv(msg.author.id, 'wheat', 33, true));
+	}
+	//leather armour
+	if (Math.random() > 0.5) {
+		items.push("leather-armour");
+		itemQuant.push(addItemToInv(msg.author.id, 'leather-armour', 2, true));
+	}
+	//bread
+	if (Math.random() > 0.1) {
+		items.push("bread");
+		itemQuant.push(addItemToInv(msg.author.id, 'bread', 17, true));
+	}
+	//emeralds
+	if (Math.random() > 0.7) {
+		items.push("emeralds");
+		itemQuant.push(addItemToInv(msg.author.id, 'emeralds', 6, true));
+	}
+	//flint
+	if (Math.random() > 0.2) {
+		items.push("flint");
+		itemQuant.push(addItemToInv(msg.author.id, 'flint', 17, true));
+	}
+	//raw beef
+	if (Math.random() > 0.3) {
+		items.push("raw-beef");
+		itemQuant.push(addItemToInv(msg.author.id, 'raw-beef', 2, true));
+	}
+
+	displayItems(items, itemQuant, "The villagers chased you away...", 'You raided the village and got...');
 }
 
 function getInv(msg) {
@@ -374,5 +405,32 @@ function giveReply(msg, text) {
 		msg.channel.send(people[msg.author.id].nickname + ', ' + text);
 	} else {
 		msg.reply(text);
+	}
+}
+
+function addItemToInv(id, itemname, multVal, ret) {
+	var numOfItems = Math.floor(Math.random() * multVal);
+	if (!people[id].hasOwnProperty('inventory')) {
+		people[id]['inventory'] = {};
+	}
+	people[id]['inventory'][itemname] = numOfItems;
+	if (ret) {
+		return numOfItems;
+	}
+}
+
+function displayItems(items, itemQuantity, ifEmptyMsg, ifNotEmptyMsg) {
+	if (items.length < 1) {
+		giveReply(msg, "ifEmptyMsg");
+	} else {
+		var rep = ifNotEmptyMsg + '\n\n';
+		console.log(items, itemQuantity);
+
+		for (var i = 0; i < items.length; i++) {
+			console.log(rep);
+			rep = rep.concat(" ", items[i], " : ", itemQuantity[i], "\n");
+		}
+		console.log(people);
+		giveReply(msg, rep);
 	}
 }
