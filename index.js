@@ -104,7 +104,7 @@ function resumeGame(msg) {
 					});
 					break;
 				case 'the-choice-before-the-mine':
-					msg.channel.send("Now choose what you want to do:\n\na)**Go minig**\nb)**Stake out for the night and mine in the morning**\nc)**Pause for now and resume later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
+					msg.channel.send("Now choose what you want to do:\n\na)**Go mining**\nb)**Stake out for the night and mine in the morning**\nc)**Pause for now and resume later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
 					//mine or stake out for the night and the nmine
 					inputCollector(msg, theChoiceBeforeTheMine, (nmsg, collected) => {
