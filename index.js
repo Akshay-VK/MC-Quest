@@ -427,9 +427,12 @@ function displayItems(msg, items, itemQuantity, ifEmptyMsg, ifNotEmptyMsg) {
 		console.log(items, itemQuantity);
 
 		for (var i = 0; i < items.length; i++) {
-			console.log(rep);
-			rep = rep.concat(" ", items[i], " : ", itemQuantity[i], "\n");
+			if (itemQuantity[i] != 0) {
+				rep = rep.concat(" **", items[i], "** : ", itemQuantity[i], "\n");
+			}
 		}
+		rep = rep.concat("\n\n");
+
 		console.log(people);
 		giveReply(msg, rep);
 	}
