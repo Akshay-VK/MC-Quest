@@ -282,7 +282,7 @@ function hunting(msg) {
 	if (huntedItems.length < 1) {
 		giveReply(msg, "You went hunting and came back empty handed.");
 	} else {
-		var rep = "You went hunting and caught..\n\n";
+		var rep = 'You went hunting and caught..\n\n';
 		console.log(huntedItems, huntedItemQuantity);
 
 		for (var i = 0; i < huntedItems.lengh; i++) {
