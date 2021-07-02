@@ -350,7 +350,12 @@ function raidVillage(msg) {
 	//leather armour
 	if (Math.random() > -1) {
 		items.push("leather-armour");
-		itemQuant.push(addItemToInv(msg.author.id, 'leather-armour', 2, true));
+		itemQuant.push(addItemToInv(msg.author.id, 'leather-armour', 2, true, true));
+	}
+	//beds
+	if (Math.random() > -1) {
+		items.push("bed");
+		itemQuant.push(addItemToInv(msg.author.id, 'bed', 2, true, true));
 	}
 	//bread
 	if (Math.random() > 0.1) {
@@ -468,8 +473,13 @@ function giveReply(msg, text) {
 	}
 }
 
-function addItemToInv(id, itemname, multVal, ret) {
-	var numOfItems = Math.floor(Math.random() * multVal);
+function addItemToInv(id, itemname, multVal, ret, compulsory) {
+	var numOfItems;
+	if (!compulsory) {
+		numOfItems = Math.floor(Math.random() * multVal);
+	} else {
+		numOfItems = ret;
+	}
 	if (!people[id].hasOwnProperty('inventory')) {
 		people[id]['inventory'] = {};
 	}
