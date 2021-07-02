@@ -284,7 +284,7 @@ function hunting(msg) {
 		huntedItems.push("leather");
 		huntedItemQuantity.push(numOfItems);
 	}
-	displayItems(huntedItems, huntedItemQuantity, "You went hunting and came back empty handed.", 'You went hunting and caught..');
+	displayItems(msg, huntedItems, huntedItemQuantity, "You went hunting and came back empty handed.", 'You went hunting and caught..');
 
 	msg.channel.send("Oh my god! Is that a village! Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
@@ -342,7 +342,7 @@ function raidVillage(msg) {
 		itemQuant.push(addItemToInv(msg.author.id, 'raw-beef', 2, true));
 	}
 
-	displayItems(items, itemQuant, "The villagers chased you away...", 'You raided the village and got...');
+	displayItems(msg, items, itemQuant, "The villagers chased you away...", 'You raided the village and got...');
 }
 
 function getInv(msg) {
@@ -419,7 +419,7 @@ function addItemToInv(id, itemname, multVal, ret) {
 	}
 }
 
-function displayItems(items, itemQuantity, ifEmptyMsg, ifNotEmptyMsg) {
+function displayItems(msg, msg, items, itemQuantity, ifEmptyMsg, ifNotEmptyMsg) {
 	if (items.length < 1) {
 		giveReply(msg, "ifEmptyMsg");
 	} else {
