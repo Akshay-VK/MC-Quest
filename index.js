@@ -62,6 +62,8 @@ function gotMessage(msg) {
 			case '*resume':
 				resumeGame(msg);
 				break;
+			case '*inv':
+				getInv(msg);
 		}
 	}
 }
@@ -310,6 +312,42 @@ function hunting(msg) {
 
 function theMine(msg) {
 	msg.channel.send("Starting to mine...");
+}
+
+function getInv(msg) {
+	if (people.hasOwnProperty(msg.author.id) && people[msg.author.id].hasOwnProperty('inventory') && people[msg.author.id]['inventory'] != {}) {
+		//display inv
+		var items = Object.keys(people[msg.author.id]['inventory']);
+		var res = 'Ýour inventory:\n\n';
+		for (var i = 0; i < items.length; i++) {
+			res += getEmoji(items[i]) + '\t**' + items[i] + '**\t\t*' + people[msg.author.id]['inventory'][items[i]] + '*\n\n';
+		}
+		giveReply(msg, res);
+
+	} else {
+		giveReply(msg, "Your inventory is empty");
+	}
+}
+
+function getEmoji(inp) {
+	switch (inp) {
+		case 'wooden-pickaxe':
+			return "<:woodpik:860396585774088212>";
+			break;
+		case 'wooden-axe':
+			return "<:woodaxe:860396749154680862>";
+			break;
+		case 'wooden-sword':
+			return "<:woodsword:860396654179385345>";
+			break;
+		case 'apple':
+			return "<:apple:860396715215421440>";
+			break;
+		default:
+			return "";
+			break;
+
+	}
 }
 
 function inputCollector(msg, onCollect, onEnd) {
