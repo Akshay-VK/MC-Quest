@@ -340,7 +340,7 @@ function getEmoji(inp) {
 		case 'wooden-sword':
 			return "<:woodsword:860396654179385345>";
 			break;
-		case 'apple':
+		case 'apples':
 			return "<:apple:860396715215421440>";
 			break;
 		default:
