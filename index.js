@@ -184,10 +184,10 @@ function firstOption(msg, m) {
 
 		msg.channel.send("You found trees and crafted up some tools.\n\nAnd while you were at it you also got " + apples + " apples.");
 
-		people[msg.author.id]["inventory"]["wooden-sword"] = true;
-		people[msg.author.id]["inventory"]["wooden-pickaxe"] = true;
-		people[msg.author.id]["inventory"]["wooden-shovel"] = true;
-		people[msg.author.id]["inventory"]["wooden-axe"] = true;
+		people[msg.author.id]["inventory"]["wooden-sword"] = 1;
+		people[msg.author.id]["inventory"]["wooden-pickaxe"] = 1;
+		people[msg.author.id]["inventory"]["wooden-shovel"] = 1;
+		people[msg.author.id]["inventory"]["wooden-axe"] = 1;
 		people[msg.author.id]["inventory"]["apples"] = apples;
 
 		if (Math.random() < 0.3) {
