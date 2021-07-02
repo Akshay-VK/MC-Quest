@@ -283,7 +283,7 @@ function hunting(msg) {
 	} else {
 		var rep = "You went hunting and caught..\n\n";
 		for (var i = 0; i < huntedItems.lengh; i++) {
-			rep = rep + " " + huntedItems[i] + " : " + huntedItemQuantity[i] + "\n"
+			rep = rep.concat(" ", huntedItems[i], " : ", huntedItemQuantity[i], "\n");
 		}
 		giveReply(msg, rep);
 	}
