@@ -350,12 +350,12 @@ function raidVillage(msg) {
 	//leather armour
 	if (Math.random() > -1) {
 		items.push("leather-armour");
-		itemQuant.push(addItemToInv(msg.author.id, 'leather-armour', 2, true, true));
+		itemQuant.push(addItemToInv(msg.author.id, 'leather-armour', 1, true, true));
 	}
 	//beds
 	if (Math.random() > -1) {
 		items.push("bed");
-		itemQuant.push(addItemToInv(msg.author.id, 'bed', 2, true, true));
+		itemQuant.push(addItemToInv(msg.author.id, 'bed', 1, true, true));
 	}
 	//bread
 	if (Math.random() > 0.1) {
