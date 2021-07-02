@@ -101,15 +101,19 @@ function resumeGame(msg) {
 }
 
 function stopGame(msg) {
-	var id = msg.author.id;
-	if (people[id].hasOwnProperty('gameState') && people[id]['gameState'] == true) {
-		people[id]['gameState'] = false;
-		people[id]['hungry'] = false;
-		people[id]['landmark'] = '';
-		people[id]['paused'] = false;
-		giveReply(msg, 'Game stopped.');
+	if (people.hasOwnProperty(id)) {
+		var id = msg.author.id;
+		if (people[id].hasOwnProperty('gameState') && people[id]['gameState'] == true) {
+			people[id]['gameState'] = false;
+			people[id]['hungry'] = false;
+			people[id]['landmark'] = '';
+			people[id]['paused'] = false;
+			giveReply(msg, 'Game stopped.');
+		} else {
+			giveReply(msg, `You don't have any game running right now...`);
+		}
 	} else {
-		giveReply(msg, `You don't have any game running right now...`);
+		people[id] = {};
 	}
 }
 
