@@ -102,7 +102,7 @@ function resumeGame(msg) {
 
 function stopGame(msg) {
 	var id = msg.author.id;
-	if (people[id]['gameState'] == true) {
+	if (people[id].hasOwnProperty('gameState') && people[id]['gameState'] == true) {
 		people[id]['gameState'] = false;
 		people[id]['hungry'] = false;
 		people[id]['landmark'] = '';
