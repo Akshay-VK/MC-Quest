@@ -272,49 +272,49 @@ function hunting(msg) {
 	}
 	if (Math.random() > 0.7) {
 		huntedItems.push("leather");
-		huntedItemQuantity.push(Math.floor(Math.random() * 3);
-		}
-		if (huntedItems.length < 1) {
-			giveReply(msg, "You went hunting and came back empty handed.");
-		} else {
-			var rep = "You went hunting and caught..\n\n";
-			for (var i = 0; i < hunted.lengh; i++) {
-				rep = rep + " " + huntedItems[i] + " : " + huntedItemQuantity[i] + "\n"
-			}
-			giveReply(msg, rep);
-		}
-		console.log(rep);
-		msg.channel.send("Oh my god! Is that a village! Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
-
-		inputCollector(msg, villageFound, (nmsg, collected) => {
-			console.log('first option ended');
-		});
+		huntedItemQuantity.push(Math.floor(Math.random() * 3));
 	}
-
-	function theMine(msg) {
-		msg.channel.send("Starting to mine...");
-	}
-
-	function inputCollector(msg, onCollect, onEnd) {
-		function filter(m) {
-			return m.author.id === msg.author.id;
+	if (huntedItems.length < 1) {
+		giveReply(msg, "You went hunting and came back empty handed.");
+	} else {
+		var rep = "You went hunting and caught..\n\n";
+		for (var i = 0; i < hunted.lengh; i++) {
+			rep = rep + " " + huntedItems[i] + " : " + huntedItemQuantity[i] + "\n"
 		}
-		const collector = msg.channel.createMessageCollector(filter, {
-			max: 1,
-			time: 15000
-		});
-		collector.on('collect', m => {
-			onCollect(msg, m);
-		});
-		collector.on('end', collected => {
-			onEnd(msg, collected);
-		})
+		giveReply(msg, rep);
 	}
+	console.log(rep);
+	msg.channel.send("Oh my god! Is that a village! Now choose what you want to do:\n\na)**Loot the village**\nb)**Start mining**\nc)**Pause the game for now and continue later**\n\nType the option name.For example, a or b or c. (If anything else is typed, the 3rd option will be taken)...");
 
-	function giveReply(msg, text) {
-		if (people.hasOwnProperty(msg.author.id) && people[msg.author.id].nickname != undefined) {
-			msg.channel.send(people[msg.author.id].nickname + ', ' + text);
-		} else {
-			msg.reply(text);
-		}
+	inputCollector(msg, villageFound, (nmsg, collected) => {
+		console.log('first option ended');
+	});
+}
+
+function theMine(msg) {
+	msg.channel.send("Starting to mine...");
+}
+
+function inputCollector(msg, onCollect, onEnd) {
+	function filter(m) {
+		return m.author.id === msg.author.id;
 	}
+	const collector = msg.channel.createMessageCollector(filter, {
+		max: 1,
+		time: 15000
+	});
+	collector.on('collect', m => {
+		onCollect(msg, m);
+	});
+	collector.on('end', collected => {
+		onEnd(msg, collected);
+	})
+}
+
+function giveReply(msg, text) {
+	if (people.hasOwnProperty(msg.author.id) && people[msg.author.id].nickname != undefined) {
+		msg.channel.send(people[msg.author.id].nickname + ', ' + text);
+	} else {
+		msg.reply(text);
+	}
+}
