@@ -343,6 +343,9 @@ function getEmoji(inp) {
 		case 'apples':
 			return "<:apple:860396715215421440>";
 			break;
+		case 'wooden-shovel':
+			return '<:woodshowel:860407397892489216>';
+			break;
 		default:
 			return "";
 			break;
