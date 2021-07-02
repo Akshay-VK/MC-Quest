@@ -283,7 +283,7 @@ function hunting(msg) {
 	} else {
 		var rep = "You went hunting and caught..\n\n";
 		for (var i = 0; i < hunted.lengh; i++) {
-			rep = rep + " " + hunted[i].name + " : " + hunted[i].quantity + "\n"
+			rep = rep + " " + hunted[i]['name'] + " : " + hunted[i]['quantity'] + "\n"
 		}
 		giveReply(msg, rep);
 	}
