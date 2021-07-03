@@ -408,7 +408,18 @@ function theChoiceBeforeTheMine(msg, m) {
 
 function stakeOut(msg) {
 	msg.channel.send("Alright...good night!!( I hope ) .... zzzzZZZ");
+
+	if (Math.random() < 0.2) {
+		msg.channel.send('You were sleeping on the bed which you got from raiding the village.\n\nA creeper came by to say hello and exploded.\n\nIn simple words...\nYou died.☠☠');
+		stopGame(msg);
+		return;
+	} else {
+		msg.channel.send('Ok..You had a good night\'s sleep..\n\nTime to mine!!!');
+		theMine(msg);
+	}
 }
+
+//HELPER FUNCTIONS
 
 function getInv(msg) {
 	if (people.hasOwnProperty(msg.author.id) && people[msg.author.id].hasOwnProperty('inventory') && people[msg.author.id]['inventory'] != {}) {
