@@ -453,6 +453,24 @@ function getEmoji(inp) {
 		case 'wooden-shovel':
 			return '<:woodshowel:860407397892489216>';
 			break;
+		case 'leather-armour':
+			return '<:leather armor:861446161210933298>';
+			break;
+		case 'wheat':
+			return '<:wheat:861445167911141448>';
+			break;
+		case 'shears':
+			return '<:sheer:861445167931588620>';
+			break;
+		case 'bed':
+			return '<:bed:861445168297541652>';
+			break;
+		case 'bread':
+			return '<:bread:861445167902228500>';
+			break;
+		case 'flint':
+			return '<:flint:861445168175644732>';
+			break;
 		default:
 			return "";
 			break;
