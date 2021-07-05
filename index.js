@@ -471,6 +471,15 @@ function getEmoji(inp) {
 		case 'flint':
 			return '<:flint:861445168175644732>';
 			break;
+		case 'pork':
+			return '<:pork:861454631506935818>';
+			break;
+		case 'emeralds':
+			return '<:emerald:861454631602487356>';
+			break;
+		case 'leather':
+			return '<:leather:861454631158153268>';
+			break;
 		default:
 			return "";
 			break;
