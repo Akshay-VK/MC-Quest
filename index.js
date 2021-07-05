@@ -454,7 +454,7 @@ function getEmoji(inp) {
 			return '<:woodshowel:860407397892489216>';
 			break;
 		case 'leather-armour':
-			return '<:leather armor:861446161210933298>';
+			return '<:leatherarmor:861446094260535326>';
 			break;
 		case 'wheat':
 			return '<:wheat:861445167911141448>';
